@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   has_many :likes
   has_many :photos
-  has_many :recipients, through: :follow_requests
-  has_many :senders, through: follow_requests
+  has_many :recipients
+  has_many :senders
   has_many :comments
 end
