@@ -10,6 +10,14 @@ class PhotosController < ApplicationController
   def show
   end
 
+  def liked
+    @user = User.find_by!(username: params.fetch(:username))
+  end
+
+  def feed
+    @user = User.find_by!(username: params.fetch(:username))
+  end
+
   # GET /photos/new
   def new
     @photo = Photo.new

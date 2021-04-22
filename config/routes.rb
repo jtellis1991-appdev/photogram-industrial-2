@@ -8,5 +8,9 @@ Rails.application.routes.draw do
   resources :likes
   resources :photos
 
-  get "/:username" => "users#show"
+  get ":username/liked" => "photos#liked", as: :liked_photos
+  get ":username/feed" => "photos#feed", as: :feed
+  get ":username/followers" => "users#followers", as: :followers #list group (Bootstrap) with links to the other users
+  get ":username/following" => "users#following", as: :following #list group (Bootstrap) with links to the other users
+  get "/:username" => "users#show", as: :user
 end
