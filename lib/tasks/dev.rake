@@ -7,11 +7,16 @@ if Rails.env.development?
   User.destroy_all
 end
 
-  12.times do 
-    name = Faker::Name.unique.first_name
+
+  usernames = Array.new {Faker::Name.unique.first}
+
+  usernames << "alice"
+  usernames << "bob"
+
+  usernames.each do |username|
     u = User.create(
-      username: name,
-      email: "#{name}@example.com",
+      username: username.downcase,
+      email: "#{username}@example.com",
       password: "password",
       private: [true, false].sample
     )
