@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: likes
+#
+#  id         :bigint           not null, primary key
+#  fan_id     :bigint           not null
+#  photo_id   :bigint           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  fan: one
+  photo: one
+
+two:
+  fan: two
+  photo: two
