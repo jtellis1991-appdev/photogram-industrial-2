@@ -1,4 +1,11 @@
 task sample_data: :environment do
+starting = Time.now
+p "creation of sample data has begun"
+
+if Rails.env.development?
+  FollowRequest.destroy_all
+  User.destroy_all
+end
 
   12.times do 
     name = Faker::Name.unique.first_name
@@ -10,7 +17,7 @@ task sample_data: :environment do
     )
   end
   # p u.errors.full_messages
-  p "#{User.count} users have been created"
+  
 
   users = User.all
 
@@ -22,7 +29,43 @@ task sample_data: :environment do
           status: FollowRequest.statuses.keys.sample
         )
       end
+
+      if rand < 0.75
+        second_user.sent_follow_requests.create(
+          recipient: first_user,
+          status: FollowRequest.statuses.keys.sample
+        )
+      end
     end
   end
 
+  users.each do |user|
+
+    rand(15).times do
+      photo = user.own_photos.create(
+        caption: Faker::Quote.jack_handey,
+        image: "https://robohash.org/#{rand(9999)}?set=set4"
+      )
+
+      user.followers.each do |follower|
+        if rand < 0.5
+          photo.fans << follower
+        end
+
+        if rand < 0.25
+          photo.comments.create(
+            body: Faker::Quote.robin,
+            author: follower
+          )
+        end
+      end
+    end
+  end
+  ending = Time.now
+  p "It took #{(ending -starting).to_i} seconds to create sample data"
+  p "#{User.count} users have been created"
+  p "#{FollowRequest.count} follow requests have been created"
+  p "#{Photo.count} photos have been created"
+  p "#{Like.count} likes have been created"
+  p "#{Comment.count} comments have been created"
 end
