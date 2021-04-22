@@ -10,10 +10,4 @@
   </div>
 </div>
 
-<%= current_user.own_photos.count %>
-
-<% current_user.own_photos.each do |photo| %>
-
-  <%= render "photos/photo", photo: photo %>
-
-<% end %>
+<%= render "users/person_list", list_of_people: current_user.leaders%>

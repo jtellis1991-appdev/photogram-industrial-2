@@ -1,0 +1,11 @@
+<div class="row mb-4">
+  <div class="col-md-6 offset-md-3">
+      <% list_of_people.each do |person| %>    
+
+      <div class="list-group">
+        <%= link_to person.username, user_path(person.username), class: "list-group-item list-group-item-action" %>
+      </div>
+
+      <% end %>
+  </div>
+</div> 
